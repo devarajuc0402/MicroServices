@@ -1,2 +1,4 @@
 # MicroServices
-Microservices with Java 21 and Spring Boot 4 
+Microservices 
+Spring Boot 4 
+Java 21
