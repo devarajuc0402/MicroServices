@@ -13,10 +13,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-	<artifactId>kafka</artifactId>
+	<artifactId>kafka-service</artifactId>
     <packaging>jar</packaging>
     
-    <name>Spring Boot Kafka Project (from https://github.com/making/spring-boot-blank)</name>
+    <name>Spring Boot: kafka-service</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

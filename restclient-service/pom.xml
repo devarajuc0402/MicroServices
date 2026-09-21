@@ -10,10 +10,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-	<artifactId>restclient</artifactId>
+	<artifactId>restclient-service</artifactId>
     <packaging>jar</packaging>
     
-	<name>Spring Boot RestClient Project (from https://github.com/making/spring-boot-blank)</name>
+	<name>Spring Boot: restClient-service</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

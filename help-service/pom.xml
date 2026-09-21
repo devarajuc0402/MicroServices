@@ -13,10 +13,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <artifactId>help</artifactId>
+    <artifactId>help-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>Spring Boot Help Project</name>
+    <name>Spring Boot: help-service</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -101,6 +101,11 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
         
     </dependencies>
