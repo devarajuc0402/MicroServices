@@ -11,6 +11,25 @@ I. Microservices with Java 21 and Spring Boot 4
 
 ================================================================================================
 
+# Technologies:
+Java 21
+Spring boot 4
+Microservices
+Oracle DB 19c
+Kafka
+Rest API
+Restclient
+
+================================================================================================
+
+# Run app in command
+mvn clean
+mvn clean install
+mvn spring-boot:start
+mvn spring-boot:stop
+
+================================================================================================
+
 II. config-repository: https://github.com/devarajuc0402/config-repository.git
 
 ================================================================================================
