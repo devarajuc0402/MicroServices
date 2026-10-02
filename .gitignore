@@ -27,6 +27,7 @@ replay_pid*
 .settings
 .project
 .classpath
+.mvn
 
 api-gateway/.settings
 api-gateway/.project
