@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ConfigTestController {
+public class ConfigHelpController {
 
 	@Value("${app.message}")
 	private String message;
 
-	@GetMapping("/config-test")
+	@GetMapping("/config-help-test")
 	public String configTest() {
 		return message;
 	}

@@ -30,7 +30,7 @@ mvn spring-boot:stop
 
 ================================================================================================
 
-II. config-repository: https://github.com/devarajuc0402/config-repository.git
+II. config-repository: https://github.com/devarajuc0402/config-repo.git
 
 ================================================================================================
 
