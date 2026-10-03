@@ -1,18 +1,16 @@
-package com.org.help.kafka.controller;
+package com.org.microservices.gateway.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/kafka")
-public class ConfigKafkaController {
+public class ConfigApiGatewayController {
 
-	@Value("${kafka.app.message}")
+	@Value("${api.gateway.app.message}")
 	private String message;
 
-	@GetMapping("/config-kafka-test")
+	@GetMapping("/config-api-gateway-test")
 	public String configTest() {
 		return message;
 	}

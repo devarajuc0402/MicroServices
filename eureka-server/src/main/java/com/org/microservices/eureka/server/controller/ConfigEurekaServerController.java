@@ -1,18 +1,16 @@
-package com.org.help.kafka.controller;
+package com.org.microservices.eureka.server.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/kafka")
-public class ConfigKafkaController {
+public class ConfigEurekaServerController {
 
-	@Value("${kafka.app.message}")
+	@Value("${eureka.server.app.message}")
 	private String message;
 
-	@GetMapping("/config-kafka-test")
+	@GetMapping("/config-eureka-server-test")
 	public String configTest() {
 		return message;
 	}
