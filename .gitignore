@@ -39,6 +39,11 @@ config-server/.project
 config-server/.classpath
 config-server/target
 
+eureka-server/.settings
+eureka-server/.project
+eureka-server/.classpath
+eureka-server/target
+
 service-discovery/.settings
 service-discovery/.project
 service-discovery/.classpath

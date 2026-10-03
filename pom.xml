@@ -32,6 +32,7 @@
 		<module>config-server</module>
 		<module>service-discovery</module>
 		<module>api-gateway</module>
+		<module>eureka-server</module>
     </modules>
     
     <dependencyManagement>
