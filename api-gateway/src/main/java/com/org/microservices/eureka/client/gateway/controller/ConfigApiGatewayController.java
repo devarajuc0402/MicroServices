@@ -1,4 +1,4 @@
-package com.org.microservices.gateway.controller;
+package com.org.microservices.eureka.client.gateway.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

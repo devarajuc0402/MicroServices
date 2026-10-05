@@ -30,9 +30,8 @@
         <module>restclient-service</module>
         
 		<module>config-server</module>
-		<module>service-discovery</module>
-		<module>api-gateway</module>
-		<module>eureka-server</module>
+		<module>eureka-client-api-gateway</module>
+		<module>eureka-server-service-discovery</module>
     </modules>
     
     <dependencyManagement>

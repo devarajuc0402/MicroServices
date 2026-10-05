@@ -13,14 +13,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <artifactId>api-gateway</artifactId>
+    <artifactId>eureka-client-api-gateway</artifactId>
     <packaging>jar</packaging>
 
-    <name>Microservices: api-gateway</name>
+    <name>Microservices: eureka-client-api-gateway</name>
     
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>com.org.microservices.gateway.ApiGatewayApplication</start-class>
+        <start-class>com.org.microservices.eureka.client.gateway.EurekaClientApiGatewayApplication</start-class>
         <java.version>21</java.version>
     </properties>
     
@@ -53,6 +53,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<!-- Load Balancer -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
 
     </dependencies>
