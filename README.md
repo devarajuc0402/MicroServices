@@ -5,9 +5,8 @@ I. Microservices with Java 21 and Spring Boot 4
     	2. kafka-service
     	3. restclient-service
     	4. config-server
-    	5. api-gateway
-    	6. service-discovery
-    	7. eureka-server
+    	5. eureka-client-api-gateway
+    	7. eureka-server-service-discovery
 	b. Branch: master
 
 ================================================================================================
