@@ -1,18 +1,16 @@
-package com.org.help.restclient.controller;
+package com.org.microservices.eureka.server.discovery.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/help/restclient")
-public class ConfigRestclientController {
+public class ConfigEurekaServerDiscoveryController {
 
-	@Value("${restclient.app.message}")
+	@Value("${eureka.server.app.message}")
 	private String message;
 
-	@GetMapping("/config-restclient-test")
+	@GetMapping("/config-eureka-server-test")
 	public String configTest() {
 		return message;
 	}

@@ -29,20 +29,20 @@ replay_pid*
 .classpath
 .mvn
 
-api-gateway/.settings
-api-gateway/.project
-api-gateway/.classpath
-api-gateway/target
+eureka-client-api-gateway/.settings
+eureka-client-api-gateway/.project
+eureka-client-api-gateway/.classpath
+eureka-client-api-gateway/target
 
 config-server/.settings
 config-server/.project
 config-server/.classpath
 config-server/target
 
-eureka-server/.settings
-eureka-server/.project
-eureka-server/.classpath
-eureka-server/target
+eureka-server-service-discovery/.settings
+eureka-server-service-discovery/.project
+eureka-server-service-discovery/.classpath
+eureka-server-service-discovery/target
 
 service-discovery/.settings
 service-discovery/.project

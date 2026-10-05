@@ -42,7 +42,7 @@ public class RestClientController {
     }
     
 	// GET : get help data by id
-    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getHelpDataByIdController(@PathVariable int id) throws ResourceNotFoundException {
     	
