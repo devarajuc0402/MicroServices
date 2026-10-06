@@ -63,10 +63,26 @@ f. kafka-service:
 
 ================================================================================================
 
-# Gateway Endpoint urls: (Local environment)
+# Gateway Endpoint urls: Manual Discovery config (Local environment)
 a. help-service: http:localhost:8080/api/help/**
 b. restclient-service: http:localhost:8080/api/restclient/**
 c. kafka-service: http:localhost:8080/api/kafka/**
+
+-Manual config:
+spring.cloud.gateway.server.webflux.routes[0].id=help-service
+spring.cloud.gateway.server.webflux.routes[0].uri=lb://help-service
+spring.cloud.gateway.server.webflux.routes[0].predicates[0]=Path=/api/help/**
+
+================================================================================================
+
+# Gateway Endpoint urls: Auto Discovery config (Local environment)
+a. help-service: http://localhost:8080/help-service/api/help/**
+b. restclient-service: http://localhost:8080/restclient-service/api/restclient/**
+c. kafka-service: http://localhost:8080/kafka-service/api/kafka/**
+
+-Auto config:
+spring.cloud.gateway.server.webflux.discovery.locator.enabled=true
+spring.cloud.gateway.server.webflux.discovery.locator.lower-case-service-id=true
 
 ================================================================================================
 
