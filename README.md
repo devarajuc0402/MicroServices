@@ -1,4 +1,4 @@
-# MicroServices
+# MicroServices:
 I. Microservices with Java 21 and Spring Boot 4 
 	a. Modules: 
 		1. help-service
@@ -22,11 +22,63 @@ Restclient
 
 ================================================================================================
 
-# Run app in command
+# Run app in command line:
 mvn clean
 mvn clean install
 mvn spring-boot:start
 mvn spring-boot:stop
+
+================================================================================================
+
+# Order to execution the app:
+a. config-server
+b. eureka-server-service-discovery
+c. eureka-client-api-gateway
+d. help-service
+e. restclient-service
+f. kafka-service
+
+================================================================================================
+
+# Health or Info check urls: (Local environment)
+a. config-server:
+	http://localhost:8888/actuator/health
+	http://localhost:8888/actuator/info
+b. eureka-server-service-discovery:
+	http://localhost:8761/actuator/health
+	http://localhost:8761/actuator/info
+c. eureka-client-api-gateway
+	http://localhost:8080/actuator/health
+	http://localhost:8080/actuator/info
+	http://localhost:8080/actuator/gateway/routes
+d. help-service: 
+	http://localhost:8081/actuator/health
+	http://localhost:8081/actuator/info
+e. restclient-service:
+	http://localhost:8082/actuator/health
+	http://localhost:8082/actuator/info
+f. kafka-service: 
+	http://localhost:8083/actuator/health
+	http://localhost:8083/actuator/info
+
+================================================================================================
+
+# Endpoint urls: (Local environment)
+a. help-service: http:localhost:8080/api/help/**
+b. restclient-service: http:localhost:8080/api/restclient/**
+c. kafka-service: http:localhost:8080/api/kafka/**
+
+================================================================================================
+
+# Eureka Server url: (Local environment)
+http://localhost:8761/
+
+================================================================================================
+
+# Swagger urls: (Local environment)
+a. help-service: http://localhost:8081/swagger-ui/index.html#
+a. restclient-servic: http://localhost:8082/swagger-ui/index.html#
+a. kafka-service: http://localhost:8083/swagger-ui/index.html#
 
 ================================================================================================
 

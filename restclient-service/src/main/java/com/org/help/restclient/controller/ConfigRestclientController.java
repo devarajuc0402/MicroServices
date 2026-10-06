@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/help/restclient")
+@RequestMapping("/api/restclient")
 public class ConfigRestclientController {
 
 	@Value("${restclient.app.message}")

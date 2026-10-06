@@ -17,7 +17,7 @@ import com.org.help.restclient.exception.ResourceNotFoundException;
 import com.org.help.restclient.service.RestClientService;
 
 @RestController
-@RequestMapping("/api/help/restclient")
+@RequestMapping("/api/restclient")
 public class RestClientController {
 
 	@Autowired
