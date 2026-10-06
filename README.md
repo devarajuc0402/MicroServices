@@ -40,7 +40,7 @@ f. kafka-service
 
 ================================================================================================
 
-# Health or Info check urls: (Local environment)
+# Module Health or Info check urls: (Local environment)
 a. config-server:
 	http://localhost:8888/actuator/health
 	http://localhost:8888/actuator/info
@@ -63,7 +63,7 @@ f. kafka-service:
 
 ================================================================================================
 
-# Endpoint urls: (Local environment)
+# Gateway Endpoint urls: (Local environment)
 a. help-service: http:localhost:8080/api/help/**
 b. restclient-service: http:localhost:8080/api/restclient/**
 c. kafka-service: http:localhost:8080/api/kafka/**
