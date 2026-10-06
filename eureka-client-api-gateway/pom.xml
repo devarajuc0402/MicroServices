@@ -55,6 +55,12 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 
+		<!-- Circuit breaker dependecy --> 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+		</dependency>
+
 		<!-- Load Balancer -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>

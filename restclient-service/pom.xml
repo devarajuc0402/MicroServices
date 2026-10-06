@@ -17,14 +17,20 @@
     <packaging>jar</packaging>
     
 	<name>Spring Boot: restclient-service</name>
-
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.org.help.restclient.RestClientApplication</start-class>
         <java.version>21</java.version>
-    </properties>
-
+    </properties>    
+    
     <dependencies>
+    
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -53,19 +59,33 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-		
 		<!-- Eureka Client -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-        
+		
+		<!-- Circuit breaker dependecy --> 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+		</dependency>
+		
+		<!-- @CircuitBreaker AOP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aspectj</artifactId>
+		</dependency>
+
+		<!-- Load Balancer dependecy -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+    
     </dependencies>
     
+
 	<build>
 		<plugins>
 			<plugin>

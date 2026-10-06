@@ -91,6 +91,29 @@ http://localhost:8761/
 
 ================================================================================================
 
+# Circuit Breaker:
+-Check in API gateway logs: 
+CircuitBreaker 'helpCircuitBreaker' changed state from CLOSED to OPEN
+
+URL: http://localhost:8080/actuator/metrics/resilience4j.circuitbreaker.state?tag=name:
+		CIRCUIT_BREAKER_NAME&tag=state:closed
+		CIRCUIT_BREAKER_NAME&tag=state:open
+		CIRCUIT_BREAKER_NAME&tag=state:half_open
+
+a. help-service:
+	-Its downstream module there is no external api
+a. restclient-service: 
+	http://localhost:8080/api/restclient/message
+b. kafka-service: 
+	http://localhost:8080/api/kafka/message
+
+1-Active
+0-Inactive
+
+message: Help Service is currently unavailable. Please try again later.
+
+================================================================================================
+
 # Swagger urls: (Local environment)
 a. help-service: http://localhost:8081/swagger-ui/index.html#
 a. restclient-servic: http://localhost:8082/swagger-ui/index.html#
