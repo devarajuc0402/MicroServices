@@ -19,6 +19,7 @@ Oracle DB 19c
 Kafka
 Rest API
 Restclient
+Docker
 
 ================================================================================================
 
@@ -31,6 +32,14 @@ mvn spring-boot:stop
 ================================================================================================
 
 # Order to execution the app:
+a. Start Kafka in command:
+	..\bin\windows\kafka-server-start.bat ..\config\server.properties
+b. Start redis on docker:
+	Start: docker start redis
+	Verify: docker exec -it redis redis-cli ping - PONG
+	Running status: docker ps
+
+-Modules:
 a. config-server
 b. eureka-server-service-discovery
 c. eureka-client-api-gateway
@@ -111,6 +120,23 @@ b. kafka-service:
 0-Inactive
 
 message: Help Service is currently unavailable. Please try again later.
+
+================================================================================================
+
+# Redis - Rate Limiter:
+
+URL: http://localhost:6379/
+
+-Run on docker: docker run -d --name redis -p 6379:6379 redis:latest
+-Test redis: docker exec -it redis redis-cli
+-127.0.0.1:6379>: ping --> PONG
+-exit
+
+================================================================================================
+
+# Docker:
+a. redis:
+	-redis image Running on docker: http://localhost:6379/
 
 ================================================================================================
 

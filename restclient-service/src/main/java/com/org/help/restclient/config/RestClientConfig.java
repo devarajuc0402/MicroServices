@@ -38,10 +38,4 @@ public class RestClientConfig {
 				.baseUrl(baseUrl)
 				.build();
 	}
-	
-	@Bean
-	RestClient restClientBuild(RestClient.Builder builder) {
-		
-		return builder.build();
-	}
 }
