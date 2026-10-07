@@ -1,4 +1,4 @@
-package com.org.help.restclient.config;
+package com.org.help.kafka.config;
 
 import java.net.http.HttpClient;
 import java.time.Duration;
@@ -21,6 +21,12 @@ public class RestClientConfig {
 	
 		return RestClient.builder();
 	}
+	
+	@Bean
+	RestClient restClientBuild(RestClient.Builder builder) {
+		
+		return builder.build();
+	}
 
 	@Bean
 	public RestClient restClient(RestClient.Builder builder) {
@@ -39,3 +45,4 @@ public class RestClientConfig {
 				.build();
 	}
 }
+
