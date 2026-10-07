@@ -64,5 +64,13 @@ docker run --name keycloak `
 			-grant_type=password
 			-username=testuser
 			-password=test123
+================================================================================================
+7. Can Increase token TTL:
+	-Default: 5 minutes
+	-To Increase:
+		-Left menu click Realm settings
+		-Click on Tokens
+		-Access Token Lifespan - mention like 30 minutes
+		-Save
 
 ================================================================================================
