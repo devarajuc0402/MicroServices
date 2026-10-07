@@ -125,7 +125,6 @@ message: Help Service is currently unavailable. Please try again later.
 ================================================================================================
 
 # Redis - Rate Limiter:
-
 URL: http://localhost:6379/
 
 -Run on docker: docker run -d --name redis -p 6379:6379 redis:latest
@@ -147,6 +146,15 @@ URL: http://localhost:8180/
 document path: ..\microservices-parent\docs\oauth2_keycloak.txt
 
 realm name: http://localhost:8180/realms/microservices
+
+================================================================================================
+
+# Postman:
+a. eureka-client-api-gateway
+	i. oauth2-keycloak authentication
+		-To generate token
+		-document path: ..\microservices-parent\docs\oauth2_keycloak.txt
+		-used to store body & header through request and collection
 
 ================================================================================================
 
