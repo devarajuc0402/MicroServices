@@ -1,0 +1,68 @@
+Steps to initiate:
+================================================================================================
+1. Open power shell
+================================================================================================
+2. execute on docker
+docker run --name keycloak `
+  -p 8180:8080 `
+  -e KC_BOOTSTRAP_ADMIN_USERNAME=admin `
+  -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin `
+  quay.io/keycloak/keycloak:26.8.0 `
+  start-dev
+================================================================================================
+3. install on local system: 
+================================================================================================
+4. Create Keycloak realm:
+	-Open : http://localhost:8180
+	-Username: admin
+	-Password: admin
+	-Create realm name: microservices
+	-Open and check the details: http://localhost:8180/realms/microservices
+	-OpenID metadata: /realms/microservices/.well-known/openid-configuration
+	-Create user:
+		-Under realm microservices: left menu
+		-Select Users
+		-Username: testuser
+		-Email: test@noemail.com
+		-Email verification: Enable
+		-Click create
+		-Select Credentials
+		-Password: test123
+		-Temporary: OFF
+================================================================================================
+5. Create client:
+	-Left menu
+	-Select Clients
+	-Click on create client
+	-CLient Type: 
+	-Client ID: microservices-client
+	-Name: microservices-client
+	-Description: microservices-client
+	-NEXT
+	-Client authentication: ON
+	-Authorization: OFF
+	-Standard flow: ON
+	-Direct access grants: ON
+	-Implicit flow: OFF
+	-Service accounts roles: OFF
+	-NEXT
+	-Root URL: Empty
+	-Home URL: Empty
+	-Valid redirect URIs: Empty
+	-Valid post logout redirect URIs: Empty
+	-Web origins: Empty
+	-Admin URL: Empty
+================================================================================================
+6. Generate Token:
+	-Generate the token:
+		-Open postman: 
+			-POST
+			-URL: http://localhost:8180/realms/microservices/protocol/openid-connect/token
+			-Body
+			-x-www-form-urlencoded
+			-client_id=microservices-client
+			-grant_type=password
+			-username=testuser
+			-password=test123
+
+================================================================================================
