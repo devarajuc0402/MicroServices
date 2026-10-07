@@ -38,6 +38,7 @@ b. Start redis on docker:
 	Start: docker start redis
 	Verify: docker exec -it redis redis-cli ping - PONG
 	Running status: docker ps
+c. Start oauth2-keycloak on docker:
 
 -Modules:
 a. config-server
@@ -137,6 +138,15 @@ URL: http://localhost:6379/
 # Docker:
 a. redis:
 	-redis image Running on docker: http://localhost:6379/
+
+================================================================================================
+
+# OAuth2 - Keycloak security domain:
+
+URL: http://localhost:8180/
+document path: ..\microservices-parent\docs\oauth2_keycloak.txt
+
+realm name: http://localhost:8180/realms/microservices
 
 ================================================================================================
 
