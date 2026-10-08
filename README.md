@@ -29,6 +29,8 @@ mvn clean install
 mvn spring-boot:start
 mvn spring-boot:stop
 
+mvn test
+
 ================================================================================================
 
 # Order to execution the app:
@@ -151,6 +153,15 @@ realm name: microservices
 client name: microservices-client
 User name: testuser
 Roles: [USER, ADMIN, HELP, KAFKA, REST]
+
+================================================================================================
+
+# Junit5:
+document path: ..\microservices-parent\docs\junit5.txt
+
+a. Testing : 
+	-Open particular module folder
+	-Run: mvn test
 
 ================================================================================================
 
