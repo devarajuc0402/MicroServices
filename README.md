@@ -137,15 +137,20 @@ URL: http://localhost:6379/
 # Docker:
 a. redis:
 	-redis image Running on docker: http://localhost:6379/
+a. oauth2-keycloak:
+	-keycloak image Running on docker: http://localhost:8180/	
 
 ================================================================================================
 
 # OAuth2 - Keycloak security domain:
-
 URL: http://localhost:8180/
 document path: ..\microservices-parent\docs\oauth2_keycloak.txt
 
-realm name: http://localhost:8180/realms/microservices
+realm url: http://localhost:8180/realms/microservices
+realm name: microservices
+client name: microservices-client
+User name: testuser
+Roles: [USER, ADMIN, HELP, KAFKA, REST]
 
 ================================================================================================
 

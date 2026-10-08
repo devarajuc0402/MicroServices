@@ -19,16 +19,17 @@ docker run --name keycloak `
 	-Create realm name: microservices
 	-Open and check the details: http://localhost:8180/realms/microservices
 	-OpenID metadata: /realms/microservices/.well-known/openid-configuration
-	-Create user:
-		-Under realm microservices: left menu
-		-Select Users
-		-Username: testuser
-		-Email: test@noemail.com
-		-Email verification: Enable
-		-Click create
-		-Select Credentials
-		-Password: test123
-		-Temporary: OFF
+================================================================================================
+5. Create user:
+	-Under realm microservices: left menu
+	-Select Users
+	-Username: testuser
+	-Email: test@noemail.com
+	-Email verification: Enable
+	-Click create
+	-Select Credentials
+	-Password: test123
+	-Temporary: OFF
 ================================================================================================
 5. Create client:
 	-Left menu
@@ -64,5 +65,38 @@ docker run --name keycloak `
 			-grant_type=password
 			-username=testuser
 			-password=test123
-
 ================================================================================================
+7. Can Increase token TTL:
+	-Default: 5 minutes
+	-To Increase:
+		-Left menu click Realm settings
+		-Click on Tokens
+		-Access Token Lifespan - mention like 30 minutes
+		-Save
+================================================================================================
+8. Create role:
+	-Left menu
+	-Click Realm roles
+	-Click create role
+		-Name: USER, ADMIN, HELP, KAFKA, REST
+		-Description: user role 
+		-Associated roles: empty
+		-Attributes: empty
+		-Users in role: [as of not required] which user needs this user access 
+		-Admin events: empty
+		-Spring convert Authority roles: ROLE_ADMIN ...
+	-Map Roles to user:
+		-Click Users
+		-Click Role mapping
+		-Assign role --> Realm roles
+		-Select all roles [USER, ADMIN, HELP, KAFKA, REST]
+		-Assign
+================================================================================================
+9. Note: Roles:
+	-Roles mapped with token no need to add anywhere
+	-Once created role and mapped with user in keycloak dashboard can use it
+================================================================================================
+
+
+
+

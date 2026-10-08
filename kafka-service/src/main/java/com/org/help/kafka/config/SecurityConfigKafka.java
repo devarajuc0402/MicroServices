@@ -1,4 +1,4 @@
-package com.org.help.restclient.config;
+package com.org.help.kafka.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,35 +9,33 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfigRestclient {
+public class SecurityConfigKafka {
 
 	@Autowired
 	JwtTokenRoleConverter jwtTokenRoleConverter;
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(
-			HttpSecurity http) {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		
 		return http
 				.csrf(csrf -> csrf.disable())
-				
+
 				.authorizeHttpRequests(auth -> auth
-						
 						.requestMatchers(
 								"/actuator/health",
 								"/actuator/info"
 						)
 						.permitAll()
 						
-						.requestMatchers("/api/restclient/**").hasAnyRole("USER", "REST")
+						.requestMatchers("/api/kafka/**").hasAnyRole("ADMIN", "KAFKA")
 						
-						.anyRequest().authenticated()
+						.anyRequest()
+						.authenticated()
 				)
-				
 				.oauth2ResourceServer(
 						oauth -> oauth.jwt(jwt -> jwt
-								.jwtAuthenticationConverter(jwtTokenRoleConverter.JwtAuthenticationConverter()))
-				)
+								.jwtAuthenticationConverter(jwtTokenRoleConverter.jwtAuthenticationConverter())))
+				
 				.build();
 
 	}
