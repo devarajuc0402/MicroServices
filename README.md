@@ -141,11 +141,14 @@ a. redis:
 ================================================================================================
 
 # OAuth2 - Keycloak security domain:
-
 URL: http://localhost:8180/
 document path: ..\microservices-parent\docs\oauth2_keycloak.txt
 
-realm name: http://localhost:8180/realms/microservices
+realm url: http://localhost:8180/realms/microservices
+realm name: microservices
+client name: microservices-client
+User name: testuser
+Roles: [USER, ADMIN, HELP, KAFKA, REST]
 
 ================================================================================================
 
