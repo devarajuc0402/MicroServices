@@ -163,6 +163,24 @@ a. Testing :
 	-Open particular module folder
 	-Run: mvn test
 
+b. Default: It will fetch property file
+	-src/main/resources
+	-Then trigger from config-server
+	
+b. Flow: 
+	i. config-server 
+	ii. eureka-server-service-discovery 
+		-Start first config-server 
+	iii. eureka-client-api-gateway 
+		-Start first config-server, eureka-server-service-discovery
+	iv. help-service 
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	v. restclient-service 
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	vi. kafka-service  
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	
+
 ================================================================================================
 
 # Postman:
