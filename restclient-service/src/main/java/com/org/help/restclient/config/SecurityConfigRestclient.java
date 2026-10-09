@@ -36,7 +36,7 @@ public class SecurityConfigRestclient {
 				
 				.oauth2ResourceServer(
 						oauth -> oauth.jwt(jwt -> jwt
-								.jwtAuthenticationConverter(jwtTokenRoleConverter.JwtAuthenticationConverter()))
+								.jwtAuthenticationConverter(jwtTokenRoleConverter.jwtAuthenticationConverter()))
 				)
 				.build();
 

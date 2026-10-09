@@ -1,0 +1,15 @@
+================================================================================================
+1. Junit5: Main unit-testing framework
+	a. Mockito: Mock services, repositories, RestClient
+	b. WebTestClient + Spring Boot Test: Gateway / WebFlux testing, rate limiter, oauth2
+	c. Testcontainers: Kafka, Redis, Oracle integration tests
+	d. WireMock: Mock external HTTP services, Circuit breaker [Integration]
+================================================================================================
+
+
+
+================================================================================================
+ 
+
+================================================================================================
+

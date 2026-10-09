@@ -26,8 +26,13 @@ Docker
 # Run app in command line:
 mvn clean
 mvn clean install
+	-Run without test cases: mvn clean install -DskipTests
 mvn spring-boot:start
 mvn spring-boot:stop
+
+
+
+mvn clean test
 
 ================================================================================================
 
@@ -151,6 +156,36 @@ realm name: microservices
 client name: microservices-client
 User name: testuser
 Roles: [USER, ADMIN, HELP, KAFKA, REST]
+
+================================================================================================
+
+# Junit5:
+document path: ..\microservices-parent\docs\junit5.txt
+
+a. Testing : 
+	-Open particular module folder
+	-Run: mvn clean test
+
+b. Default: It will fetch property file
+	-src/main/resources
+	-Then trigger from config-server
+	
+c. Datailed output:
+	mvn clean test "-DtrimStackTrace=false" "-Dsurefire.useFile=false"
+	
+b. Flow: 
+	i. config-server 
+	ii. eureka-server-service-discovery 
+		-Start first config-server 
+	iii. eureka-client-api-gateway 
+		-Start first config-server, eureka-server-service-discovery
+	iv. help-service 
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	v. restclient-service 
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	vi. kafka-service  
+		-Start first config-server, eureka-server-service-discovery, eureka-client-api-gateway
+	
 
 ================================================================================================
 
