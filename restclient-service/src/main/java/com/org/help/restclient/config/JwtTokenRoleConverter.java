@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class JwtTokenRoleConverter {
 
 	@Bean
-	public JwtAuthenticationConverter JwtAuthenticationConverter() {
+	public JwtAuthenticationConverter jwtAuthenticationConverter() {
 		
 		JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
 		

@@ -26,10 +26,13 @@ Docker
 # Run app in command line:
 mvn clean
 mvn clean install
+	-Run without test cases: mvn clean install -DskipTests
 mvn spring-boot:start
 mvn spring-boot:stop
 
-mvn test
+
+
+mvn clean test
 
 ================================================================================================
 
@@ -161,11 +164,14 @@ document path: ..\microservices-parent\docs\junit5.txt
 
 a. Testing : 
 	-Open particular module folder
-	-Run: mvn test
+	-Run: mvn clean test
 
 b. Default: It will fetch property file
 	-src/main/resources
 	-Then trigger from config-server
+	
+c. Datailed output:
+	mvn clean test "-DtrimStackTrace=false" "-Dsurefire.useFile=false"
 	
 b. Flow: 
 	i. config-server 
