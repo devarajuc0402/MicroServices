@@ -66,7 +66,39 @@ public class RestClientConfigTest {
 	}
 	
 	@Test
-	public void getForwordJwtToken() {
+	public void getForwardWithoutJwtToken() {
+		
+		wireMock.stubFor(WireMock
+				.get(WireMock.urlEqualTo("/api/restclient/message"))
+				
+				.willReturn(WireMock
+						.aResponse()
+						.withStatus(200)
+						.withBody("Connected to help-service...")
+				)
+		);
+		
+		SecurityContextHolder.clearContext();
+		
+		String response = restClient
+				.get()
+				.uri("/api/restclient/message")
+				.retrieve()
+				.body(String.class);
+		
+		assertThat(response)
+			.isEqualTo("Connected to help-service...");
+		
+		wireMock.verify(1, WireMock
+				.getRequestedFor(WireMock
+						.urlEqualTo("/api/restclient/message"))
+				
+				.withoutHeader(HttpHeaders.AUTHORIZATION)
+		);
+	}
+	
+	@Test
+	public void getForwordWithoutJwtToken() {
 		
 		wireMock.stubFor(WireMock
 				.get(WireMock.urlEqualTo("/api/restclient/message"))
