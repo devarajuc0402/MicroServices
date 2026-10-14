@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">	
+	<!-- <meta name="google-site-verification" content="nlPUPpnI7EewoAZa2Yq6vbN9pNlTN24qESigNJJBJHs" /> -->
+	<meta name="google-site-verification" content="-GMIF4AVQ1v3y5OqauKEafYxmbCUGTXQYa2imwxwZvo" />
+	
+    <title>MicroServices Project | Spring Boot 4 & Java 21</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            color: #e8edf5;
+            background: #101827;
+        }
+
+        header {
+            padding: 65px 20px;
+            text-align: center;
+            background: #172b46;
+        }
+
+        header h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: #c5d3e6;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        section {
+            margin-bottom: 35px;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .module {
+            padding: 20px;
+            background: #1b2739;
+            border: 1px solid #34445b;
+            border-radius: 10px;
+        }
+
+        a {
+            color: #80c7ff;
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px 6px;
+            padding: 10px 18px;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+        }
+
+        footer {
+            padding: 25px;
+            text-align: center;
+            background: #0b1220;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <h1>Spring Boot MicroServices Project</h1>
+    <p>Java 21 | Spring Boot 4 | Spring Cloud</p>
+    <p>A microservices architecture project with service discovery,
+       centralized configuration, security and resilience.</p>
+
+    <a class="button"
+       href="https://github.com/devarajuc0402/MicroServices">
+       View Complete Source Code
+    </a>
+
+    <a class="button"
+       href="https://github.com/devarajuc0402/MicroServices/issues">
+       Issues & Contributions
+    </a>
+</header>
+
+<main>
+    <section>
+        <h2>Project Overview</h2>
+        <p>
+            This project demonstrates a Spring Boot microservices
+            architecture using Java 21 and Spring Cloud. Explore the
+            source code, service configuration, security integration,
+            resilience patterns and testing implementation.
+        </p>
+    </section>
+
+    <section>
+        <h2>Microservices Modules</h2>
+
+        <div class="modules">
+            <article class="module">
+                <h3>Config Server</h3>
+                <p>Centralized configuration using Spring Cloud Config.</p>
+            </article>
+
+            <article class="module">
+                <h3>Service Discovery</h3>
+                <p>Service registration and discovery with Netflix Eureka.</p>
+            </article>
+
+            <article class="module">
+                <h3>API Gateway</h3>
+                <p>Routing, service load balancing and gateway security.</p>
+            </article>
+
+            <article class="module">
+                <h3>Help Service</h3>
+                <p>A Spring Boot service exposing help-related endpoints.</p>
+            </article>
+
+            <article class="module">
+                <h3>REST Client Service</h3>
+                <p>Service-to-service REST communication and circuit breakers.</p>
+            </article>
+
+            <article class="module">
+                <h3>Kafka Service</h3>
+                <p>Messaging integration using Apache Kafka.</p>
+            </article>
+        </div>
+
+        <p>
+            Browse all module folders and source files in the
+            <a href="https://github.com/devarajuc0402/MicroServices">
+                complete GitHub repository
+            </a>.
+        </p>
+    </section>
+
+    <section>
+        <h2>Technology Stack</h2>
+        <p>
+            Java 21 · Spring Boot 4 · Spring Cloud · Eureka ·
+            Spring Cloud Gateway · Spring Security · Keycloak ·
+            Redis · Resilience4j · Apache Kafka · JUnit 5 · Maven
+        </p>
+    </section>
+
+    <section>
+        <h2>Source Code & Documentation</h2>
+        <p>
+            <a href="https://github.com/devarajuc0402/MicroServices">
+                Browse the complete project
+            </a>
+        </p>
+        <p>
+            <a href="https://github.com/devarajuc0402/MicroServices/blob/main/README.md">
+                Read the project README
+            </a>
+        </p>
+    </section>
+</main>
+
+<footer>
+    <p>MicroServices Project | Spring Boot 4 & Java 21</p>
+    <p>
+        <a href="https://github.com/devarajuc0402/MicroServices">
+            GitHub Repository
+        </a>
+    </p>
+</footer>
+</body>
+</html>
