@@ -39,7 +39,7 @@ public class HelpServiceClientTest {
 	
 	@DynamicPropertySource
 	public static void registerProperties(DynamicPropertyRegistry registry) {
-		registry.add("http://localhost:8081", wiremock::baseUrl);
+		registry.add("spring.boot.base.url", wiremock::baseUrl);
 	}
 	
 	@AfterAll
@@ -63,7 +63,7 @@ public class HelpServiceClientTest {
 		wiremock
 			.stubFor(WireMock
 					.get(WireMock
-							.urlEqualTo("/api/help/message")
+							.urlEqualTo("/api/restclient/message")
 					)
 					.willReturn(WireMock
 							.aResponse()
@@ -93,8 +93,8 @@ public class HelpServiceClientTest {
 		assertThat(breaker.getState())
 			.isEqualTo(State.OPEN);
 		
-		// To open state configured in 30s
-		Thread.sleep(Duration.ofSeconds(10));
+		// To open state configured in 22s
+		Thread.sleep(Duration.ofSeconds(22));
 		assertThat(breaker.getState())
 			.isEqualTo(CircuitBreaker.State.HALF_OPEN);
 		

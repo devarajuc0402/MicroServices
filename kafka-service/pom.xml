@@ -40,11 +40,6 @@
 		    <version>2.8.9</version>
 		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!-- Spring Boot Kafka Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -103,8 +98,51 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
+		
+		<!-- Test: Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Test: OAuth2-Keycloak Test -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Test: Spring MVC config test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Test: Wiremock HTTP compatable for circuit breaker & Restclient -->
+		<dependency>
+			<groupId>org.wiremock</groupId>
+			<artifactId>wiremock-jetty12</artifactId>
+			<version>3.13.2</version>
+			<scope>test</scope>
+		</dependency>
         
     </dependencies>
+    
+	<dependencyManagement>
+		<dependencies>
+		
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-bom</artifactId>
+				<version>12.0.30</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		
+		</dependencies>
+	</dependencyManagement>
     
 	<build>
 		<plugins>
