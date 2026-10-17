@@ -43,6 +43,7 @@ b. Start redis on docker:
 	Start: docker start redis
 	Verify: docker exec -it redis redis-cli ping - PONG
 	Running status: docker ps
+	Running both rate limiter & caching in same jar and port
 c. Start oauth2-keycloak on docker:
 
 -Modules:
@@ -132,6 +133,16 @@ message: Help Service is currently unavailable. Please try again later.
 # Redis - Rate Limiter:
 URL: http://localhost:6379/
 
+-Run on docker: docker run -d --name redis -p 6379:6379 redis:latest
+-Test redis: docker exec -it redis redis-cli
+-127.0.0.1:6379>: ping --> PONG
+-exit
+
+================================================================================================
+
+# Redis - Caching:
+URL: http://localhost:6379/
+Using same jar & port for rate limiter & caching
 -Run on docker: docker run -d --name redis -p 6379:6379 redis:latest
 -Test redis: docker exec -it redis redis-cli
 -127.0.0.1:6379>: ping --> PONG

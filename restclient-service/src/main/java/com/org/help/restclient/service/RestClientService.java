@@ -3,6 +3,7 @@ package com.org.help.restclient.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +24,10 @@ public class RestClientService {
 		this.restClient = restClient;
 	}
 	
+	@Cacheable(
+			cacheNames = "restClientList",
+			key = "'all'"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientListFallback"
