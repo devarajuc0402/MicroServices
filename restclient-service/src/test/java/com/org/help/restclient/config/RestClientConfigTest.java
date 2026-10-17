@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.client.RestClient;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -62,7 +61,7 @@ public class RestClientConfigTest {
 		SecurityContextHolder.clearContext();
 	}
 	
-//	@Test
+	@Test
 	public void createRestclientBeans() {
 		
 		assertNotNull(restClient);
@@ -70,7 +69,7 @@ public class RestClientConfigTest {
 		
 	}
 	
-//	@Test
+	@Test
 	public void getForwardWithoutJwtToken() {
 		
 		wireMock.stubFor(WireMock

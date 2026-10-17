@@ -124,7 +124,7 @@
 		</dependency>
 		-->
 
-		<!-- Test: HTTP compatable for wiremock circuit breaker -->
+		<!-- Test: Wiremock HTTP compatable for circuit breaker & Restclient -->
 		<dependency>
 			<groupId>org.wiremock</groupId>
 			<artifactId>wiremock-jetty12</artifactId>

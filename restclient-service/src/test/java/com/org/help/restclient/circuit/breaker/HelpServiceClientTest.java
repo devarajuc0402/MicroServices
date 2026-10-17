@@ -39,7 +39,7 @@ public class HelpServiceClientTest {
 	
 	@DynamicPropertySource
 	public static void registerProperties(DynamicPropertyRegistry registry) {
-		registry.add("http://localhost:8081", wiremock::baseUrl);
+		registry.add("spring.boot.base.url", wiremock::baseUrl);
 	}
 	
 	@AfterAll
@@ -63,7 +63,7 @@ public class HelpServiceClientTest {
 		wiremock
 			.stubFor(WireMock
 					.get(WireMock
-							.urlEqualTo("/api/help/message")
+							.urlEqualTo("/api/restclient/message")
 					)
 					.willReturn(WireMock
 							.aResponse()

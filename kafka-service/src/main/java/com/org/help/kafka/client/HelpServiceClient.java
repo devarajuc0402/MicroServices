@@ -1,5 +1,6 @@
 package com.org.help.kafka.client;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
@@ -9,6 +10,9 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 public class HelpServiceClient {
 
 	private final RestClient restClient;
+	
+	@Value("${spring.boot.base.url}")
+	private String baseUrl; 
 	
 	public HelpServiceClient(RestClient.Builder restClient) {
 		this.restClient = restClient
