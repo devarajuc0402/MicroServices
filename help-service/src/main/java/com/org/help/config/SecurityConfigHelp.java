@@ -25,7 +25,10 @@ public class SecurityConfigHelp {
 						
 						.requestMatchers(
 								"/actuator/health",
-								"/actuator/info"
+								"/actuator/info",
+								"/swagger-ui.html",
+								"/swagger-ui/**",
+								"/v3/api-docs/**"
 						).permitAll()
 						
 						.requestMatchers("/api/help/**").hasAnyRole("USER", "HELP")

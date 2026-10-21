@@ -27,7 +27,7 @@ public class RestClientService {
 	}
 	
 	@Cacheable(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "'all'"
 	)
 	@CircuitBreaker(
@@ -44,7 +44,7 @@ public class RestClientService {
 	}
 	
 	@Cacheable(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#id"
 	)
 	@CircuitBreaker(
@@ -61,7 +61,7 @@ public class RestClientService {
 	}
 	
 	@CachePut(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#result.helpId"
 	)
 	@CircuitBreaker(
@@ -83,7 +83,7 @@ public class RestClientService {
 	}
 	
 	@CachePut(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#result.helpId"
 	)
 	@CircuitBreaker(
@@ -102,7 +102,7 @@ public class RestClientService {
 	}
 	
 	@CachePut(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#result.helpId"
 	)
 	@CircuitBreaker(
@@ -121,7 +121,7 @@ public class RestClientService {
 	}
 	
 	@CachePut(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#result.helpId"
 	)
 	@CircuitBreaker(
@@ -140,7 +140,7 @@ public class RestClientService {
 	}
 	
 	@CacheEvict(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "#id"
 	)
 	@CircuitBreaker(
@@ -156,9 +156,9 @@ public class RestClientService {
 
 	}
 	
-    // restclientListFallback method
+    // restClientServiceFallback method
     @Cacheable(
-    		cacheNames = "restClientList",
+    		cacheNames = "restClientService",
     		key = "'fallback'"
     )
 	public List<Object> restclientListFallback(Throwable throwable) {
@@ -175,7 +175,7 @@ public class RestClientService {
     
     // restclientFallback method
     @Cacheable(
-    		cacheNames = "restClientList",
+    		cacheNames = "restClientService",
     		key = "'fallback'"
     )
     public Object restclientFallback(Throwable throwable) {
