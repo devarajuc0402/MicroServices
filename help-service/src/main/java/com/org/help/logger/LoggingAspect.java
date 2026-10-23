@@ -21,7 +21,9 @@ public class LoggingAspect {
 	private static final Logger log = 
 			LoggerFactory.getLogger(LoggingAspect.class);
 	
-	@Pointcut("execution(* com.org.help.service..*(..))")
+//	@Pointcut("execution(* com.org.help.service..*(..))")
+	@Pointcut("execution(* com.org.help.service..*(..)) || " + 
+			"execution(* com.org.help.query..*(..))")
 	public void serviceMethods() {}
 	
 	@Around("serviceMethods()")

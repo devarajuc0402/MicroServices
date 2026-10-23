@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.org.help.entity.HelpEntity;
 import com.org.help.exception.ResourceNotFoundException;
 import com.org.help.kafka.service.KafkaProducerService;
+import com.org.help.query.HelpQueryService;
 import com.org.help.restclient.RestClientService;
 import com.org.help.service.HelpService;
 
@@ -32,11 +33,18 @@ public class HelpController {
 	private static final Logger logger =
             LogManager.getLogger(HelpController.class);
 	
+	private final HelpQueryService helpQueryService;
+	
 	@Autowired
 	HelpService helpService;
 	
 	@Autowired
 	KafkaProducerService kafkaProducerService;
+	
+	public HelpController(
+			HelpQueryService helpQueryService) {
+		this.helpQueryService = helpQueryService;
+	}
 
 	/* GET - get All help list */
 	@SuppressWarnings("static-access")
@@ -45,8 +53,10 @@ public class HelpController {
 	public ResponseEntity<?> getAllHelpController() {
 		List<HelpEntity> helpList = new ArrayList<HelpEntity>();
 		try {
-			CompletableFuture<List<HelpEntity>> future = helpService.getAllHelpService();
-			
+			helpList = helpQueryService.getQueryServiceHelpList();
+
+			CompletableFuture<List<HelpEntity>> future = CompletableFuture.completedFuture(helpList);
+
 			future.supplyAsync(() -> {
 				try {
 					Thread.sleep(Duration.ofSeconds(2));
@@ -82,7 +92,7 @@ public class HelpController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getHelpIdRequestParamController(@RequestParam int helpId) throws ResourceNotFoundException {
 
-		Optional<HelpEntity> helpEntity = helpService.getHelpIdService(helpId);
+		Optional<HelpEntity> helpEntity = helpQueryService.getQueryServiceHelpById(helpId);
 
 		if(!helpEntity.isPresent()) {
 			ResponseEntity<HelpEntity> validationMsg = ResponseEntity.of(Optional.of(helpEntity
@@ -102,7 +112,7 @@ public class HelpController {
 	@RequestMapping(value = "/id/{helpId}", method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getHelpIdPathVariableController(@PathVariable int helpId) throws ResourceNotFoundException {
-		Optional<HelpEntity> helpEntity = helpService.getHelpIdService(helpId);
+		Optional<HelpEntity> helpEntity = helpQueryService.getQueryServiceHelpById(helpId);
 		
 		if(!helpEntity.isPresent()) {
 			return ResponseEntity.of(Optional.of(helpEntity
@@ -121,7 +131,8 @@ public class HelpController {
 			@RequestParam int startHelpId,
 			@RequestParam int endHelpId) throws Exception {
 
-		CompletableFuture<List<HelpEntity>> future = helpService.getHelpIdLimitService(startHelpId, endHelpId);
+		List<HelpEntity> helpLimitList = helpQueryService.getQueryServiceHelpIdLimit(startHelpId, endHelpId);
+		CompletableFuture<List<HelpEntity>> future = CompletableFuture.completedFuture(helpLimitList);
 		List<HelpEntity> helpEntityList = future.get();
 
 		if(helpEntityList.isEmpty()) {

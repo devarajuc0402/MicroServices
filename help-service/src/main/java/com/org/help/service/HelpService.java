@@ -20,41 +20,41 @@ public class HelpService {
 	@Autowired
 	private HelpRepository helpRepository;
 	
-	@Cacheable(
-			cacheNames = "helpService",
-			key = "'all'"
-	)
-	@Async
-	public CompletableFuture<List<HelpEntity>> getAllHelpService() {
-		List<HelpEntity> helpList = helpRepository.findAll();
-		
-		CompletableFuture<List<HelpEntity>> future = CompletableFuture.completedFuture(helpList);
-//		CompletableFuture<List<HelpEntity>> future = HelpService.process(helpList);
-		
-		return future;
-	}
-	
-	@Cacheable(
-			cacheNames = "helpService",
-			key = "#helpId"
-	)
+//	@Cacheable(
+//			cacheNames = "helpService",
+//			key = "'all'"
+//	)
 //	@Async
-	public Optional<HelpEntity> getHelpIdService(int helpId) {
-		Optional<HelpEntity> help = helpRepository.findByHelpId(helpId);
-		return help;
-	}
+//	public CompletableFuture<List<HelpEntity>> getAllHelpService() {
+//		List<HelpEntity> helpList = helpRepository.findAll();
+//		
+//		CompletableFuture<List<HelpEntity>> future = CompletableFuture.completedFuture(helpList);
+////		CompletableFuture<List<HelpEntity>> future = HelpService.process(helpList);
+//		
+//		return future;
+//	}
 	
-	@Cacheable(
-			cacheNames = "helpService",
-			key = "#startHelpId +'_'+ #endHelpId"
-	)
-	@Async
-	public CompletableFuture<List<HelpEntity>> getHelpIdLimitService(int startHelpId, int endHelpId) {
-		List<HelpEntity> help = helpRepository.getByHelpIdLimit(startHelpId, endHelpId);
-		
-		CompletableFuture<List<HelpEntity>> future = HelpService.process(help);
-		return future;
-	}
+//	@Cacheable(
+//			cacheNames = "helpService",
+//			key = "#helpId"
+//	)
+////	@Async
+//	public Optional<HelpEntity> getHelpIdService(int helpId) {
+//		Optional<HelpEntity> help = helpRepository.findByHelpId(helpId);
+//		return help;
+//	}
+	
+//	@Cacheable(
+//			cacheNames = "helpService",
+//			key = "#startHelpId +'_'+ #endHelpId"
+//	)
+//	@Async
+//	public CompletableFuture<List<HelpEntity>> getHelpIdLimitService(int startHelpId, int endHelpId) {
+//		List<HelpEntity> help = helpRepository.getByHelpIdLimit(startHelpId, endHelpId);
+//		
+//		CompletableFuture<List<HelpEntity>> future = HelpService.process(help);
+//		return future;
+//	}
 	
 	@CachePut(
 			cacheNames = "helpService",
