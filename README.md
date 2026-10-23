@@ -200,6 +200,20 @@ b. Flow:
 
 ================================================================================================
 
+# AOP:
+1. added in help-service
+2. added AOP logging execution of all help services
+3. working AOP along with cache and async
+
+================================================================================================
+
+# CQRS: (Command Query Responsibility Segregation)
+1. command: read data from database
+2. query: create, update or delete from database
+3. 
+
+================================================================================================
+
 # Postman:
 a. eureka-client-api-gateway
 	i. oauth2-keycloak authentication

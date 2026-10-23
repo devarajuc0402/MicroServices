@@ -3,6 +3,8 @@ package com.org.help.restclient.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public class RestClientService {
 	}
 	
 	@Cacheable(
-			cacheNames = "restClientList",
+			cacheNames = "restClientService",
 			key = "'all'"
 	)
 	@CircuitBreaker(
@@ -41,6 +43,10 @@ public class RestClientService {
 				.body(new ParameterizedTypeReference<List<Object>>() {});
 	}
 	
+	@Cacheable(
+			cacheNames = "restClientService",
+			key = "#id"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -54,6 +60,10 @@ public class RestClientService {
 				.body(Object.class);
 	}
 	
+	@CachePut(
+			cacheNames = "restClientService",
+			key = "#result.helpId"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -72,6 +82,10 @@ public class RestClientService {
 				.body(HelpEntity.class);
 	}
 	
+	@CachePut(
+			cacheNames = "restClientService",
+			key = "#result.helpId"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -87,6 +101,10 @@ public class RestClientService {
 		
 	}
 	
+	@CachePut(
+			cacheNames = "restClientService",
+			key = "#result.helpId"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -102,6 +120,10 @@ public class RestClientService {
 
 	}
 	
+	@CachePut(
+			cacheNames = "restClientService",
+			key = "#result.helpId"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -117,6 +139,10 @@ public class RestClientService {
 
 	}
 	
+	@CacheEvict(
+			cacheNames = "restClientService",
+			key = "#id"
+	)
 	@CircuitBreaker(
 			name = "restclientCircuitBreaker",
 			fallbackMethod = "restclientFallback"
@@ -130,8 +156,12 @@ public class RestClientService {
 
 	}
 	
-    // restclientListFallback method
-    public List<Object> restclientListFallback(Throwable throwable) {
+    // restClientServiceFallback method
+    @Cacheable(
+    		cacheNames = "restClientService",
+    		key = "'fallback'"
+    )
+	public List<Object> restclientListFallback(Throwable throwable) {
     	
     	List<Object> list = new ArrayList<Object>();
     	
@@ -144,6 +174,10 @@ public class RestClientService {
     }
     
     // restclientFallback method
+    @Cacheable(
+    		cacheNames = "restClientService",
+    		key = "'fallback'"
+    )
     public Object restclientFallback(Throwable throwable) {
     	
     	System.out.println("========== FALLBACK CALLED ==========");
