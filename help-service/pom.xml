@@ -141,6 +141,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
+		
+		<!-- AOP - Logging execution time -->		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-aspectj</artifactId>
+		</dependency>
         
     </dependencies>
     
