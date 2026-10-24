@@ -110,21 +110,34 @@ public class HelpService {
 			key = "#helpId"
 	)
 	public Optional<?> deleteByIdHelpDataService(int helpId) {
-		helpRepository.deleteById((long)helpId);
-		Optional<?> result = Optional.of(helpId+" Deleted Successfully");
 		
-		return result;	
+		boolean isPresent = helpRepository.existsById((long)helpId);
+		
+		if(isPresent) {
+			helpRepository.deleteById((long)helpId);
+			HelpEntity helpEntity = new HelpEntity();
+			helpEntity.setHelpId((long)helpId);
+			Optional<?> result = Optional.of(helpEntity);	
+			
+			return result;
+		}
+		return Optional.empty();
 	}
 	
 	@CacheEvict(
 			cacheNames = "helpService",
-			key = "#result.helpId"
+			key = "#p0"
 	)
 	public Optional<?> deleteHelpDataService(HelpEntity helpEntity) {
-		helpRepository.delete(helpEntity);
-		Optional<?> result = Optional.of(helpEntity.getHelpId()+" Deleted Successfully");
 		
-		return result;	
+		boolean isPresent = helpRepository.existsById(helpEntity.getHelpId());
+		
+		if(isPresent) {
+			helpRepository.delete(helpEntity);
+			Optional<?> result = Optional.of(helpEntity);	
+			return result;
+		}
+		return Optional.empty();
 	}
 
 	private HelpEntity mapHelpEntity(Optional<HelpEntity> help, HelpEntity helpEntity) {

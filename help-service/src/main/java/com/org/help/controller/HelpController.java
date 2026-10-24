@@ -1,6 +1,5 @@
 package com.org.help.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -342,6 +341,12 @@ public class HelpController {
 			
 			Optional<?> help = future.get();
 			
+			if(help.isEmpty()) {
+				
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body(new ResourceNotFoundException(help.get().toString()));
+			}
+			
 			kafkaProducerService.produce((HelpEntity)help.get());
 			return ResponseEntity.ok(help);
 			
@@ -366,6 +371,12 @@ public class HelpController {
 						return helpService.deleteHelpDataService(helpEntity);
 					});
 			Optional<?> help = future.get();
+			
+			if(help.isEmpty()) {
+				
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body(new ResourceNotFoundException(help.get().toString()));
+			}
 			
 			kafkaProducerService.produce((HelpEntity)help.get());
 			return ResponseEntity.ok(help);
