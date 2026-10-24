@@ -1,0 +1,70 @@
+===========================================================================================================
+
+1. Check Visulization:
+	-Right click on windows
+	-Click task manager
+	-Click on Perfomance
+	-Check Visulization - Enabled
+
+2. Install wsl
+	-Its activate linux terminal
+	-Open Power shell as administrator
+	-Install: wsl --install
+	-Default unix user account: smile
+	-Password: root
+	-Linux path: /mnt/c/WINDOWS/system32
+	-Update - wsl --update
+
+3. Download: https://www.docker.com/products/docker-desktop/?utm_source=chatgpt.com
+	-Run as administrator
+	-select first option
+	-Install
+
+4. Open Docker Desktop
+	-Create docker account
+	-Email: devarajuc0402@gmail.com
+	-Username: devarajuc0402
+	-Password: Smile@123
+
+5. Running & Check docker is working
+	docker run hello-world
+	docker images hello-world
+
+6. Stop running images in command:
+	docker ps
+	-Stop one container: 
+		docker stop <container_name_or_id>
+	-Remove docker container:
+		docker rm <container_name_or_id>
+	-Remove docker image:
+		docker rmi <image_name_or_id>
+	-Stop all container: 
+		docker ps -q | ForEach-Object { docker stop $_ }
+
+
+6. Commands:
+	-Running images: docker images
+	-Running container: docker ps -a
+
+
+===========================================================================================================
+
+
+docker exec -it <your-redis-container-name> redis-cli
+
+
+// redirect to redis cli
+docker exec -it redis redis-cli
+
+// get all cache list
+SCAN 0
+
+// get all the responses
+GET "restClientList::all"
+
+TTL "restClientList::all"
+
+
+
+
+===========================================================================================================
