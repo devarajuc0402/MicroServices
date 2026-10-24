@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.help.command.HelpCommandService;
 import com.org.help.entity.HelpEntity;
 import com.org.help.exception.ResourceNotFoundException;
 import com.org.help.kafka.service.KafkaProducerService;
 import com.org.help.query.HelpQueryService;
 import com.org.help.restclient.RestClientService;
-import com.org.help.service.HelpService;
 
 @RestController
 @RequestMapping("/api/help")
@@ -33,15 +33,16 @@ public class HelpController {
 	
 	private final HelpQueryService helpQueryService;
 	
-	@Autowired
-	HelpService helpService;
+	private final HelpCommandService helpCommandService;
 	
 	@Autowired
 	KafkaProducerService kafkaProducerService;
 	
 	public HelpController(
-			HelpQueryService helpQueryService) {
+			HelpQueryService helpQueryService,
+			HelpCommandService helpCommandService) {
 		this.helpQueryService = helpQueryService;
+		this.helpCommandService = helpCommandService;
 	}
 
 	/* GET - get All help list */
@@ -203,13 +204,13 @@ public class HelpController {
 	public ResponseEntity<?> insertHelpDataController(@RequestBody HelpEntity helpEntity) 
 		throws Exception {
 		
-//		HelpEntity help = helpService.insertHelpDataService(helpEntity);
+//		HelpEntity help = helpCommandService.insertCommandServiceHelpData(helpEntity);
 		
 		try {
 			
 			CompletableFuture<HelpEntity> future = 
 					CompletableFuture.supplyAsync(() -> {
-						return helpService.insertHelpDataService(helpEntity);
+						return helpCommandService.insertCommandServiceHelpData(helpEntity);
 					});
 			HelpEntity help = future.get();
 		
@@ -231,14 +232,14 @@ public class HelpController {
 			@PathVariable int helpId,
 			@RequestBody HelpEntity helpEntity) throws Exception {
 		
-//		Optional<?> help = helpService.updatePutHelpDataService(helpId, helpEntity);
+//		Optional<?> help = helpCommandService.updatePutCommandServiceHelpData(helpId, helpEntity);
 		
 		try {
 			
 			CompletableFuture<Optional<?>> future = 
 					CompletableFuture.supplyAsync(() -> {
 						
-						return helpService.updatePutHelpDataService(helpId, helpEntity);
+						return helpCommandService.updatePutCommandServiceHelpData(helpId, helpEntity);
 						
 					});
 			Optional<?> help = future.get();
@@ -267,14 +268,14 @@ public class HelpController {
 	public ResponseEntity<?> updateOrInsertHelpDataController(@RequestBody HelpEntity helpEntity) 
 		throws Exception {
 		
-//		HelpEntity help = helpService.updateOrInsertHelpDataService(helpEntity);
+//		HelpEntity help = helpCommandService.updateOrInsertCommandServiceHelpData(helpEntity);
 
 		try {
 			
 			CompletableFuture<HelpEntity> future = 
 					CompletableFuture.supplyAsync(() -> {
 						
-						return helpService.updateOrInsertHelpDataService(helpEntity);
+						return helpCommandService.updateOrInsertCommandServiceHelpData(helpEntity);
 						
 					});
 			HelpEntity help = future.get();
@@ -289,21 +290,21 @@ public class HelpController {
 	}
 
 	/* PATCH - update completely new help data into db */ 
-	@RequestMapping(value = "/patchupdate/{id}", method = RequestMethod.PATCH,
+	@RequestMapping(value = "/patchupdate/{helpId}", method = RequestMethod.PATCH,
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> patchUpdateHelpDataController(
-			@PathVariable int id,
+			@PathVariable int helpId,
 			@RequestBody HelpEntity helpEntity) throws Exception {
 		
-//		Optional<?> help = helpService.updatePutHelpDataService(id, helpEntity);
+//		Optional<?> help = helpCommandService.updatePutCommandServiceHelpData(helpId, helpEntity);
 		
 		try {
 			
 			CompletableFuture<Optional<?>> future = 
 					CompletableFuture.supplyAsync(() -> {
 						
-						return helpService.updatePutHelpDataService(id, helpEntity);
+						return helpCommandService.updatePutCommandServiceHelpData(helpId, helpEntity);
 						
 					});
 			Optional<?> help = future.get();
@@ -326,17 +327,17 @@ public class HelpController {
 	}
 	
 	/* DELETE - delete a help data by id from db */ 
-	@RequestMapping(value = "/delete/id/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> deleteByIdHelpDataController(@PathVariable int id) throws Exception {
+	@RequestMapping(value = "/delete/id/{helpId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteByIdHelpDataController(@PathVariable long helpId) throws Exception {
 		
-//		Optional<?> help = helpService.deleteByIdHelpDataService(id);
+//		Optional<?> help = helpCommandService.deleteCommandServiceByHelpId(helpId);
 		
 		try {
 		
 			CompletableFuture<Optional<?>> future = 
 					CompletableFuture.supplyAsync(() -> {
 						
-						return helpService.deleteByIdHelpDataService(id);
+						return helpCommandService.deleteCommandServiceByHelpId(helpId);
 					});
 			
 			Optional<?> help = future.get();
@@ -361,14 +362,14 @@ public class HelpController {
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteByIdHelpDataController(@RequestBody HelpEntity helpEntity) throws Exception {
 		
-//		Optional<?> help = helpService.deleteHelpDataService(helpEntity);
+//		Optional<?> help = helpCommandService.deleteCommandServiceByHelpData(helpEntity);
 		
 		try {
 		
 			CompletableFuture<Optional<?>> future = 
 					CompletableFuture.supplyAsync(() -> {
 						
-						return helpService.deleteHelpDataService(helpEntity);
+						return helpCommandService.deleteCommandServiceByHelpData(helpEntity);
 					});
 			Optional<?> help = future.get();
 			

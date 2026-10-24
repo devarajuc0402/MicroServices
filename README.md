@@ -30,9 +30,8 @@ mvn clean install
 mvn spring-boot:start
 mvn spring-boot:stop
 
-
-
 mvn clean test
+	-Run & get detailed output: mvn clean test "-DtrimStackTrace=false" "-Dsurefire.useFile=false"
 
 ================================================================================================
 
@@ -209,8 +208,8 @@ b. Flow:
 
 # CQRS: (Command Query Responsibility Segregation)
 1. added in help-service
-1. query: read or get data from database
-2. command: create, update or delete from database
+1. query handler: read or get data from database
+2. command handler: create, update or delete from database
 
 ================================================================================================
 
