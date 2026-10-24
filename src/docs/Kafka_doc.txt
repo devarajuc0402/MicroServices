@@ -1,0 +1,182 @@
+
+KAFKA 3.9.2v
+
+Downloads: Binary file
+-https://kafka.apache.org/community/downloads/
+-https://archive.apache.org/dist/kafka/3.9.2/kafka_2.12-3.9.2.tgz
+
+=====================================================================================================================
+
+Install:
+C:\Kafka\kafka_2.12-3.9.2\config
+
+-Update zookeeper.properties file:
+dataDir=C:/Kafka/zookeeper-data
+
+-Update server.properties file:
+log.dirs=C:/Kafka/kafka-logs
+
+=====================================================================================================================
+
+Run command: [Note: kafka 4 & above completly removed zookeeper. run internally KRaft mode]
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows
+
+1. Generate a Cluster UUID
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat random-uuid
+
+C:\Users\Smile>C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat random-uuid
+2026-08-05T14:11:26.027412600Z main ERROR Reconfiguration failed: No configuration found for '2c7b84de' at 'null' in 'null'
+1jI9eP8TQEqitGCznaFh6A
+
+
+2. Format the Log Directories
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat format -t 1jI9eP8TQEqitGCznaFh6A -c C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+
+3. Start kafka:
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-start.bat .\config\kraft\server.properties
+
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat format ^
+  --standalone ^
+  -t IAlLhKz3Qa6AjLjv8DoJcQ ^
+  -c C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+=====================================================================================================================
+
+C:\Users\Smile>C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat format ^
+More?   --standalone ^
+More?   -t 1jI9eP8TQEqitGCznaFh6A ^
+More?   -c C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+2026-08-05T14:22:32.865014900Z main ERROR Reconfiguration failed: No configuration found for '2c7b84de' at 'null' in 'null'
+Bootstrap metadata: BootstrapMetadata(records=[ApiMessageAndVersion(FeatureLevelRecord(name='metadata.version', featureLevel=30) at version 0), ApiMessageAndVersion(FeatureLevelRecord(name='eligible.leader.replicas.version', featureLevel=1) at version 0), ApiMessageAndVersion(FeatureLevelRecord(name='group.version', featureLevel=1) at version 0), ApiMessageAndVersion(FeatureLevelRecord(name='share.version', featureLevel=1) at version 0), ApiMessageAndVersion(FeatureLevelRecord(name='streams.version', featureLevel=1) at version 0), ApiMessageAndVersion(FeatureLevelRecord(name='transaction.version', featureLevel=2) at version 0)], metadataVersionLevel=30, source=format command)
+Formatting dynamic metadata voter directory C:/Kafka/kafka_logs with metadata.version 4.3-IV0.
+
+=====================================================================================================================
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-start.bat C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-stop.bat C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+=====================================================================================================================
+
+--Alternate Way--
+KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c config/kraft/server.properties
+bin/kafka-server-start.sh config/kraft/server.properties
+
+=====================================================================================================================
+
+// 17-09-2026
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat random-uuid
+
+361x1ZyvTMCTdUhnwiXnAQ
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat format -t 361x1ZyvTMCTdUhnwiXnAQ -c C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-start.bat C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --create --topic help-topic --bootstrap-server localhost:9092
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
+=====================================================================================================================
+
+
+// 19-09-2026
+
+C:\Kafka\kafka_2.13-4.3.1\bin
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat random-uuid
+
+6pSrUfF3Qxu-KeO5OBkZ6A
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-storage.bat format --standalone -t 6pSrUfF3Qxu-KeO5OBkZ6A -c C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+// start kafka in command line
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-start.bat C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-server-stop.bat C:\Kafka\kafka_2.13-4.3.1\config\server.properties
+
+//check port running:
+netstat -ano | findstr :9092
+
+// kill app
+Stop-Process -Id 1234 -Force
+
+Stop-Process -Name "eclipse" -Force
+
+
+
+// to view kafka produced messages:
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic help-topic
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --create --topic help-topic --bootstrap-server localhost:9092
+
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-topics.bat --list --bootstrap-server localhost:9092
+
+
+=====================================================================================================================
+
+// check kafka produces messages in topic
+C:\Kafka\kafka_2.13-4.3.1\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic help-topic
+
+{"helpId":101,"topic":"Kafka","info":"Kafka message"}
+{"helpId":102,"topic":"Spring Boot","info":"Kafka implementation"}
+
+
+=====================================================================================================================
+
+// when getting wmic error:
+
+comment existing and added below lines
+
+IF ["%KAFKA_HEAP_OPTS%"] EQU [""] (
+    set KAFKA_HEAP_OPTS=-Xmx1G -Xms1G
+)
+
+=====================================================================================================================
+
+// delete all files in kafka_logs folder:
+------------------
+delete all: /__cluster_metadata-0/*.checkpoint.deleted*
+delete all: /__cluster_metadata-0/*.checkpoint 
+delete all: /_consumer_offsets-*
+delete all: /help-topic-*
+------------------
+
+
+
+C:\Kafka\kafka_logs\**
+
+C:\Kafka\kafka_logs\*.checkpoint.deleted*
+
+Grant files permission: 
+	icacls "C:\Kafka\kafka_logs" /grant "${env:USERNAME}:(OI)(CI)M" /T
+
+
+Get-ChildItem "C:\Kafka\kafka_logs\__cluster_metadata-0\" -Recurse -Force -File -Filter "*.checkpoint.deleted" |
+	Select-Object FullName, Attributes
+
+
+Get-ChildItem "C:\Kafka\kafka_logs\__cluster_metadata-0\" -Filter "*.checkpoint.deleted*" -File |
+    ForEach-Object { $_.IsReadOnly = $false }
+
+Delete "*.checkpoint.deleted" the files:
+	Remove-Item -Path C:\Kafka\kafka_logs\__cluster_metadata-0\*.checkpoint.deleted*
+
+
+
+C:\Kafka\kafka_logs\__cluster_metadata-0\00000000000000000000-0000000000.checkpoint.deleted
+
+=====================================================================================================================
+

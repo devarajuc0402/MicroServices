@@ -30,9 +30,8 @@ mvn clean install
 mvn spring-boot:start
 mvn spring-boot:stop
 
-
-
 mvn clean test
+	-Run & get detailed output: mvn clean test "-DtrimStackTrace=false" "-Dsurefire.useFile=false"
 
 ================================================================================================
 
@@ -200,7 +199,7 @@ b. Flow:
 
 ================================================================================================
 
-# AOP:
+# AOP: (Aspect Oriented Programming)
 1. added in help-service
 2. added AOP logging execution of all help services
 3. working AOP along with cache and async
@@ -208,9 +207,9 @@ b. Flow:
 ================================================================================================
 
 # CQRS: (Command Query Responsibility Segregation)
-1. command: read data from database
-2. query: create, update or delete from database
-3. 
+1. added in help-service
+1. query handler: read or get data from database
+2. command handler: create, update or delete from database
 
 ================================================================================================
 

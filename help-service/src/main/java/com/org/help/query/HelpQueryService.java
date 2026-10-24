@@ -3,6 +3,8 @@ package com.org.help.query;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,9 @@ import com.org.help.entity.HelpEntity;
 
 @Service
 public class HelpQueryService {
+	
+	private final Logger log = 
+			LoggerFactory.getLogger(HelpQueryService.class);
 
 	@Autowired
 	private HelpQueryHandler helpQueryHandler;
@@ -21,7 +26,7 @@ public class HelpQueryService {
 			key = "'all'"
 	)
 	public List<HelpEntity> getQueryServiceHelpList() {
-		System.out.println("getQueryServiceHelpList()");
+		log.info("get help list");
 		return helpQueryHandler.getQueryHandlerHelpList();
 	}
 	
@@ -30,7 +35,7 @@ public class HelpQueryService {
 			key = "#helpId"
 	)
 	public Optional<HelpEntity> getQueryServiceHelpById(int helpId) {
-		System.out.println("getQueryServiceHelpById()");
+		log.info("get help list by helpId: {}", helpId);
 		return helpQueryHandler.getQueryHandlerHelpById(helpId);
 	}
 	
@@ -39,7 +44,7 @@ public class HelpQueryService {
 			key = "#startHelpId +'_'+ #endHelpId"
 	)
 	public List<HelpEntity> getQueryServiceHelpIdLimit(int startHelpId, int endHelpId) {
-		System.out.println("getQueryServiceHelpIdLimit()");
+		log.info("get help list by startId: {} & endHelpId: {}", startHelpId, endHelpId);
 		return helpQueryHandler.getQueryHandlerHelpIdLimit(startHelpId, endHelpId);
 	}
 }

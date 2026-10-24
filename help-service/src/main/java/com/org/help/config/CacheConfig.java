@@ -1,5 +1,7 @@
 package com.org.help.config;
 
+import java.time.Duration;
+
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +33,8 @@ public class CacheConfig {
 		
 		RedisCacheConfiguration config = 
 				RedisCacheConfiguration.defaultCacheConfig()
+				
+			.entryTtl(Duration.ofMinutes(10))
 		
 			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(
 					new StringRedisSerializer()

@@ -30,5 +30,10 @@ public class HelpQueryHandler {
 	public List<HelpEntity> getQueryHandlerHelpIdLimit(int startHelpId, int endHelpId) {
 		return helpRepository.getByHelpIdLimit(startHelpId, endHelpId);
 	}
+	
+	@Transactional(readOnly = true)
+	public boolean existsQueryHandlerByHelpId(long helpId) {
+		return helpRepository.existsById(helpId);
+	}
 
 }
