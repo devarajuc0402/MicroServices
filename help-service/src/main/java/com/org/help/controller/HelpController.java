@@ -55,6 +55,7 @@ public class HelpController {
 		try {
 			helpList = helpQueryService.getQueryServiceHelpList();
 
+			
 			CompletableFuture<List<HelpEntity>> future = CompletableFuture.completedFuture(helpList);
 
 			future.supplyAsync(() -> {
@@ -67,6 +68,29 @@ public class HelpController {
 				return "done";
 			});
 			
+//			CompletableFuture<List<HelpEntity>> future1 = CompletableFuture
+//					
+//					.supplyAsync(() -> {
+//						List<HelpEntity> list = new ArrayList<HelpEntity>();
+//						list.add(new HelpEntity());
+//				
+//						return list;
+//					}
+//					).thenCompose(list -> {
+//					
+//					CompletableFuture.supplyAsync(() -> {
+//						System.out.println();
+//						return list;
+//					});
+//				});
+
+//			public CompletableFuture<List<HelpEntity>> getHelpListAsync() {
+//			    return CompletableFuture.supplyAsync(
+//			        () -> new ArrayList<HelpEntity>()
+//			    );
+//			}
+
+
 			helpList = future.get();
 			
 			List<HelpEntity> resultList = helpList;

@@ -200,7 +200,7 @@ b. Flow:
 
 ================================================================================================
 
-# AOP:
+# AOP: (Aspect Oriented Programming)
 1. added in help-service
 2. added AOP logging execution of all help services
 3. working AOP along with cache and async
@@ -208,9 +208,9 @@ b. Flow:
 ================================================================================================
 
 # CQRS: (Command Query Responsibility Segregation)
-1. command: read data from database
-2. query: create, update or delete from database
-3. 
+1. added in help-service
+1. query: read or get data from database
+2. command: create, update or delete from database
 
 ================================================================================================
 
