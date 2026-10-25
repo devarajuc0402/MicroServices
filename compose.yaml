@@ -1,6 +1,12 @@
 services:
   config-server:
     build: ./config-server
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     ports:
       - "8888:8888"
     networks:
@@ -9,11 +15,18 @@ services:
 
   eureka-server:
     build: ./eureka-server-service-discovery
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
     ports:
       - "8761:8761"
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-service-discovery:8761/eureka/"
+      SPRING_APPLICATION_NAME: eureka-server-service-discovery
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
     depends_on:
       - config-server
     networks:
@@ -22,75 +35,102 @@ services:
 
   redis:
     image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports: 
-      - "9001:9001"
+      - "9000:9000"
     networks:
       - microservices-parent-network
 
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.8.0
-    command: start-dev
     ports: 
-      - "9002:9002"
+     - "8180:8080"
+     - "9002:9000"
+    healthcheck:
+      test:
+       - CMD
+       - bash
+       - -c
+       - "echo > /dev/tcp/127.0.0.1/9000"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+    command: start-dev
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: "true"
     networks:
       - microservices-parent-network
 
 
-  help-service:
-    build: ./help-service
-    environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-service-discovery:8761/eureka/"
-      SPRING_KAFKA-BOOTSTRAP_SERVERS: "host.docker.internal:9000"
-    depends_on:
-      - config-server
-      - eureka-server
-      - redis
-      - keycloak
-    networks:
-      - microservices-parent-network
+#  help-service:
+#    build: ./help-service
+#    environment:
+#      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+#      SPRING_KAFKA-BOOTSTRAP_SERVERS: "host.docker.internal:9100"
+#    depends_on:
+#      - config-server
+#      - eureka-server
+#      - redis
+#      - keycloak
+#    networks:
+#      - microservices-parent-network
 
-
-  restclient-service:
-    build: ./restclient-service
-    environment:
-      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server-service-discovery:8761/eureka/"
-    depends_on:
-      - config-server
-      - eureka-server
-    networks:
-      - microservices-parent-network
-
-
-  kafka-service:
-    build: ./kafka-service
-    environment:
-      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-    depends_on:
-      - config-server
-      - eureka-server
-    networks:
-      - microservices-parent-network
-
+#
+#  restclient-service:
+#    build: ./restclient-service
+#    environment:
+#      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+#    depends_on:
+#      - config-server
+#      - eureka-server
+#    networks:
+#      - microservices-parent-network
+#
+#
+#  kafka-service:
+#    build: ./kafka-service
+#    environment:
+#      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+#    depends_on:
+#      - config-server
+#      - eureka-server
+#    networks:
+#      - microservices-parent-network
+#
   api-gateway:
     build: ./eureka-client-api-gateway
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
     ports:
       - "8080:8080"
     environment:
-      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
+      SPRING_APPLICATION_NAME: eureka-client-api-gateway
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
     depends_on:
-      - config-server
-      - eureka-server
-      - help-service
-      - restclient-service
-      - redis
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
     networks:
       - microservices-parent-network
 
