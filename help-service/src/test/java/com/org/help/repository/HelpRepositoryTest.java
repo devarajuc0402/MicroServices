@@ -17,7 +17,7 @@ import com.org.help.entity.HelpEntity;
 		"spring.cloud.config.import-check.enabled=false"
 })
 public class HelpRepositoryTest {
-
+	
 	@Autowired
 	private HelpRepository helpRepository;
 	

@@ -15,11 +15,11 @@ public class GlobalExceptionHandler {
 				.body("Resource Not Found: "+ex);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<?> handleException(Exception ex) {
-		
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.body("Internal Server Error: "+ex);
-		
-	}
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<?> handleException(Exception ex) {
+//		
+//		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//				.body("Internal Server Error: "+ex);
+//		
+//	}
 }
