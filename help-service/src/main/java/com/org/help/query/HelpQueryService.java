@@ -47,4 +47,13 @@ public class HelpQueryService {
 		log.info("get help list by startId: {} & endHelpId: {}", startHelpId, endHelpId);
 		return helpQueryHandler.getQueryHandlerHelpIdLimit(startHelpId, endHelpId);
 	}
+	
+	@Cacheable(
+			cacheNames = "helpService",
+			key = "#startHelpId +'_'+ #endHelpId"
+	)
+	public boolean existsQueryServiceByHelpId(int helpId) {
+		log.info("check help exist by helpId: {}", helpId);
+		return helpQueryHandler.existsQueryHandlerByHelpId(helpId);
+	}
 }
