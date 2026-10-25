@@ -199,6 +199,10 @@ b. Flow:
 
 ================================================================================================
 
+# H2 Database for DB testing:
+
+================================================================================================
+
 # AOP: (Aspect Oriented Programming)
 1. added in help-service
 2. added AOP logging execution of all help services
