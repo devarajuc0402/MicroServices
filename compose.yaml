@@ -36,6 +36,7 @@ services:
 
   redis:
     image: redis:7-alpine
+    container_name: "redis"
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -49,6 +50,7 @@ services:
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.8.0
+    container_name: "keycloak"
     ports: 
       - "8180:8080"
     healthcheck:
@@ -71,6 +73,52 @@ services:
     networks:
       - microservices-parent-network
 
+  oracle-db:
+    image: gvenzl/oracle-free:23-slim
+    container_name: "oracle-db"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    ports:
+      - "1522:1521"
+    environment:
+      ORACLE_PASSWORD: SYSTEM
+      APP_USER: HELP
+      APP_USER_PASSWORD: HELP
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    networks:
+      - microservices-parent-network
+
+  kafka:
+    image: apache/kafka:4.3.1
+    ports:
+      - "9092:9092"
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 30s
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    volumes:
+      - oracle-data:/var/lib/kafka/data
+    networks:
+      - microservices-parent-network
+
 
   help-service:
     build: ./help-service
@@ -81,8 +129,49 @@ services:
       retries: 10
       start_period: 60s
     environment:
-      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
+      SPRING_APPLICATION_NAME: help-service
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8180/realms/microservices
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/microservices/protocol/openid-connect/certs
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//oracle-db:1521/FREEPDB1
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME:-HELP}
+      SPRING_DATASOURCE_PASSWORD: HELP
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: oracle.jdbc.OracleDriver
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_KAFKA_TOPIC_NAME: help-topic
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+      oracle-db:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+    networks:
+      - microservices-parent-network
+
+
+  restclient-service:
+    build: ./restclient-service
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8082/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    environment:
+      SPRING_APPLICATION_NAME: restclient-service
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      HELP_SERVICE_URL: "http://help-service:8081/api/help"
       SPRING_DATA_REDIS_HOST: redis
       SPRING_DATA_REDIS_PORT: 6379
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8180/realms/microservices
@@ -94,35 +183,34 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-      keycloak:
+    networks:
+      - microservices-parent-network
+
+
+  kafka-service:
+    build: ./kafka-service
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8083/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    environment:
+      SPRING_APPLICATION_NAME: kafka-service
+      SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      HELP_SERVICE_URL: "http://help-service:8081"
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      kafka:
         condition: service_healthy
     networks:
       - microservices-parent-network
 
-#
-#  restclient-service:
-#    build: ./restclient-service
-#    environment:
-#      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
-#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-#    depends_on:
-#      - config-server
-#      - eureka-server
-#    networks:
-#      - microservices-parent-network
-#
-#
-#  kafka-service:
-#    build: ./kafka-service
-#    environment:
-#      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
-#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-#    depends_on:
-#      - config-server
-#      - eureka-server
-#    networks:
-#      - microservices-parent-network
-#
   api-gateway:
     build: ./eureka-client-api-gateway
     healthcheck:
@@ -157,6 +245,7 @@ services:
 
 volumes:
   keycloak-data:
+  oracle-data:
 
 networks:
   microservices-parent-network:

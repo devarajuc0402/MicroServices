@@ -29,6 +29,7 @@ replay_pid*
 .classpath
 .mvn
 target/*
+password.env
 
 eureka-client-api-gateway/.settings
 eureka-client-api-gateway/.project

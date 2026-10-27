@@ -77,9 +77,25 @@ Get-Content .\gateway-target-check\BOOT-INF\classes\application.properties
 
 ===========================================================================================================
 
-
+// go inside docker image: run local power shell
+docker compose exec oracle-db bash
 
 ===========================================================================================================
+
+// oracle docker db: execute in compose file folder
+
+docker compose exec oracle-db bash
+
+>sqlplus /nolog
+sqlplus / as sysdba
+
+CONNECT SYSTEM@"//localhost:1521/FREEPDB1"
+
+password: HELP
+
+ALTER SESSION SET CONTAINER = FREEPDB1;
+
+ALTER USER HELP IDENTIFIED BY HELP ACCOUNT UNLOCK;
 
 
 
