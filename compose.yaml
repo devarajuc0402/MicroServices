@@ -42,7 +42,7 @@ services:
       timeout: 5s
       retries: 5
     ports: 
-      - "9000:9000"
+      - "6379:6379"
     networks:
       - microservices-parent-network
 
@@ -50,14 +50,13 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.8.0
     ports: 
-     - "8180:8080"
-     - "9002:9000"
+      - "8180:8080"
     healthcheck:
       test:
        - CMD
        - bash
        - -c
-       - "echo > /dev/tcp/127.0.0.1/9000"
+       - "echo > /dev/tcp/127.0.0.1/8080"
       interval: 10s
       timeout: 5s
       retries: 5
@@ -67,23 +66,38 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
       KC_HEALTH_ENABLED: "true"
+    volumes:
+      - keycloak-data:/opt/keycloak/data
     networks:
       - microservices-parent-network
 
 
-#  help-service:
-#    build: ./help-service
-#    environment:
-#      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
-#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
-#      SPRING_KAFKA-BOOTSTRAP_SERVERS: "host.docker.internal:9100"
-#    depends_on:
-#      - config-server
-#      - eureka-server
-#      - redis
-#      - keycloak
-#    networks:
-#      - microservices-parent-network
+  help-service:
+    build: ./help-service
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    environment:
+      SPRING_CONFIG_IMPORT: "configserver:http://localhost:8888/"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8180/realms/microservices
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/microservices/protocol/openid-connect/certs
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+    networks:
+      - microservices-parent-network
 
 #
 #  restclient-service:
@@ -123,10 +137,16 @@ services:
       SPRING_APPLICATION_NAME: eureka-client-api-gateway
       SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: http://localhost:8180/realms/microservices
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: http://keycloak:8080/realms/microservices/protocol/openid-connect/certs
     depends_on:
       config-server:
         condition: service_healthy
       eureka-server:
+        condition: service_healthy
+      help-service:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -135,6 +155,8 @@ services:
     networks:
       - microservices-parent-network
 
+volumes:
+  keycloak-data:
 
 networks:
   microservices-parent-network:
