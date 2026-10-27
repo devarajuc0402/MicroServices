@@ -28,7 +28,8 @@ services:
       SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888/"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
     depends_on:
-      - config-server
+      config-server:
+        condition: service_healthy
     networks:
       - microservices-parent-network
 
