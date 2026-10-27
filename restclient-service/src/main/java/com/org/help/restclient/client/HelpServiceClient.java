@@ -12,7 +12,8 @@ public class HelpServiceClient {
 	
 	public HelpServiceClient(RestClient.Builder restClient) {
 		this.restClient = restClient
-				.baseUrl("http://localhost:8081")
+//				.baseUrl("http://localhost:8081")
+				.baseUrl("http://help-service:8081")
 				.build();
 	}
 	

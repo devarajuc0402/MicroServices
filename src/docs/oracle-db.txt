@@ -1,0 +1,127 @@
+
+// check db in power shell:
+
+docker compose exec oracle-db bash
+
+sqlplus / as sysdba
+
+ALTER SESSION SET CONTAINER = FREEPDB1;
+
+CONNECT HELP/HELP@//localhost:1521/FREEPDB1
+
+=======================================================================================
+
+// oracle docker db: execute in compose file folder
+
+docker compose exec oracle-db bash
+
+>sqlplus /nolog
+sqlplus / as sysdba
+sqlplus HELP@//localhost:1521/FREEPDB1
+
+CONNECT SYSTEM@"//localhost:1521/FREEPDB1"
+
+password: HELP
+
+ALTER SESSION SET CONTAINER = FREEPDB1;
+
+ALTER USER HELP IDENTIFIED BY HELP ACCOUNT UNLOCK;
+
+=======================================================================================
+
+// local oracle db:
+
+DB username: system
+DB password: smile123
+Owner: SYSTEM
+
+Schema: orcl
+
+=======================================================================================
+
+
+
+// docker db:
+
+DB username: HELP
+DB password: HELP
+Owner: HELP
+
+Schema: FREEPDB1
+
+
+=======================================================================================
+
+// migrate local database data into docker db:
+
+// local://
+
+//to find the owner:
+SELECT owner, table_name
+FROM all_tables
+WHERE table_name = 'HELP';
+
+SELECT SYS_CONTEXT('USERENV', 'SERVICE_NAME') AS orcl
+FROM dual;
+
+output: SYS$USERS
+
+SELECT directory_name, directory_path
+FROM all_directories
+WHERE directory_name = 'DATA_PUMP_DIR';
+
+output: directory_name: DATA_PUMP_DIR, directory_path: C:\Oracle\admin\orcl\dpdump/B9244254BF08404FBF280D2CA8B1DB81
+
+// export existing data from local db:
+expdp SYSTEM@//localhost:1521/ORCLPDB TABLES=SYSTEM.HELP DIRECTORY=DATA_PUMP_DIR DUMPFILE=help_table.dmp LOGFILE=help_export.log;
+
+export path: C:\Oracle\admin\orcl\dpdump\help_table.dmp
+
+=======================================================================================
+
+// docker: //
+docker compose exec oracle-db bash
+
+sqlplus / as sysdba
+
+ALTER SESSION SET CONTAINER = FREEPDB1;
+
+CONNECT HELP/HELP@//localhost:1521/FREEPDB1
+
+SELECT directory_path
+FROM dba_directories
+WHERE directory_name = 'DATA_PUMP_DIR';
+
+output: directory_name: DATA_PUMP_DIR, directory_path: /opt/oracle/admin/FREE/dpdump/5A4CD42EF8C011A1E0639A00010A3724
+
+docker cp "C:\Users\Smile\Desktop\help_table.sql" microservices-parent-oracle-db-1:/tmp/help_table.sql
+
+sqlplus HELP@//localhost:1521/FREEPDB1
+
+docker compose exec microservices-parent-oracle-db-1 ls -l /tmp/help_table.sql
+
+@/tmp/help_table.sql
+
+
+C:\Users\Smile\Desktop\help_table.sql
+
+
+// import existing data into docker db:
+expdp SYSTEM@//localhost:1521/orcl TABLES=HELP.HELP DIRECTORY=DATA_PUMP_DIR DUMPFILE=help_table.dmp LOGFILE=help_export.log;
+
+=======================================================================================
+
+
+CREATE SEQUENCE help_id_seq
+    START WITH 1072
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+
+=======================================================================================
+
+
+ALTER USER HELP IDENTIFIED BY HELP ACCOUNT UNLOCK;
+
+=======================================================================================

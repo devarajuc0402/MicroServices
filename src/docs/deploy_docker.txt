@@ -1,0 +1,106 @@
+
+// Steps:
+1. Create Dockerfile for sepearate file for each service
+2. clean package: mvn clean package -DskipTests
+3. create compose.yaml file in main parent directory
+4. docker compose config
+5. docker compose up --build -d
+6. docker compose ps
+7. docker compose logs -f SERVICE_NAME
+
+
+
+===========================================================================================================
+
+run particular service: 
+	docker compose up -d --build --force-recreate api-gateway
+
+show logs: 
+	docker compose logs -f eureka-server
+
+build & deploy all service: 
+	docker compose up --build -d
+
+running service: docker compose ps
+stopped service: docker compose ps -a
+
+docker rm -f keycloak
+
+===========================================================================================================
+
+// check healthy
+docker inspect microservices-parent-api-gateway-1 --format "{{json .State.Health}}"
+
+docker compose build --no-cache api-gateway
+docker compose up -d --force-recreate api-gateway
+docker compose logs --since=2m api-gateway
+
+===========================================================================================================
+
+
+Get-ChildItem -Recurse -File -Include *.properties,*.yml,*.yaml |
+    Select-String "spring.config.import|localhost:8888"
+
+===========================================================================================================
+
+//Check the packaged image
+docker compose run --rm --no-deps --entrypoint sh api-gateway -c "find / -name application.properties 2>/dev/null"
+
+docker compose run --rm --no-deps --entrypoint sh api-gateway -c "find / -name '*.jar' 2>/dev/null"
+
+//Copy the JAR from the container
+docker cp microservices-parent-api-gateway-1:/app/app.jar .\gateway-app.jar
+
+Copy-Item .\gateway-app.jar .\gateway-app.zip
+
+Expand-Archive .\gateway-app.zip -DestinationPath .\gateway-app-extracted -Force
+
+===========================================================================================================
+
+//get dockerfile
+Get-Content .\eureka-client-api-gateway\Dockerfile
+
+
+===========================================================================================================
+
+//verify rebuild jar:
+
+New-Item -ItemType Directory -Force .\gateway-target-check | Out-Null
+
+Push-Location .\gateway-target-check
+
+jar xf ..\eureka-client-api-gateway\target\eureka-client-api-gateway-0.0.1-SNAPSHOT.jar BOOT-INF/classes/application.properties
+
+Pop-Location
+
+Get-Content .\gateway-target-check\BOOT-INF\classes\application.properties
+
+===========================================================================================================
+
+// go inside docker image: run local power shell
+docker compose exec oracle-db bash
+
+===========================================================================================================
+
+// oracle docker db: execute in compose file folder
+
+docker compose exec oracle-db bash
+
+>sqlplus /nolog
+sqlplus / as sysdba
+
+CONNECT SYSTEM@"//localhost:1521/FREEPDB1"
+
+password: HELP
+
+ALTER SESSION SET CONTAINER = FREEPDB1;
+
+ALTER USER HELP IDENTIFIED BY HELP ACCOUNT UNLOCK;
+
+
+
+===========================================================================================================
+
+
+===========================================================================================================
+===========================================================================================================

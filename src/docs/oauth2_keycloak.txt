@@ -17,6 +17,8 @@ docker run --name keycloak `
 	-Username: admin
 	-Password: admin
 	-Create realm name: microservices
+		-left-menu: click Manage realms
+		-add realm name and create
 	-Open and check the details: http://localhost:8180/realms/microservices
 	-OpenID metadata: /realms/microservices/.well-known/openid-configuration
 ================================================================================================
@@ -26,6 +28,8 @@ docker run --name keycloak `
 	-Username: testuser
 	-Email: test@noemail.com
 	-Email verification: Enable
+	-FirstName: test
+	-LastName: test
 	-Click create
 	-Select Credentials
 	-Password: test123
@@ -44,6 +48,7 @@ docker run --name keycloak `
 	-Authorization: OFF
 	-Standard flow: ON
 	-Direct access grants: ON
+	-Service account roles: ON
 	-Implicit flow: OFF
 	-Service accounts roles: OFF
 	-NEXT
