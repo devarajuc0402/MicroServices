@@ -1,0 +1,30 @@
+
+1. Job applications and interview preparation
+
+Keep applying now. Revise Java, Spring Boot, microservices, SQL, Kafka, security, and system design while building.
+
+================================================================================================
+
+Weeks 1–2
+
+2. Angular fundamentals
+
+TypeScript, components, services, dependency injection, routing, forms, and HTTP Client. Build the help-service UI.
+
+================================================================================================
+
+Week 3
+
+3. Frontend and backend integration
+
+Connect CRUD operations, handle errors, configure CORS, and integrate Keycloak authentication.
+
+================================================================================================
+
+Week 4
+
+4. AWS and CI/CD
+
+Learn IAM, VPC, EC2, load balancing, container deployment, CloudWatch, and a CI/CD pipeline. Reuse your existing Docker project.
+
+================================================================================================
