@@ -23,6 +23,24 @@ Docker
 
 ================================================================================================
 
+# Java Backend completion checklist:
+1. Core microservices — Completed
+	Config Server, Eureka Service Discovery, API Gateway, Help Service, RestClient Service, and Kafka Service.
+	
+2. Java Backend features — Completed
+	REST CRUD, Oracle database integration, Redis caching, asynchronous processing, CQRS, and AOP logging.
+	
+3. Security and resilience — Implemented
+	Keycloak JWT authentication, role-based authorization, circuit breakers, rate limiting, and fallbacks. Verify 	failure scenarios and authorization across all services.
+	
+4. Database and Docker — Working
+	Oracle migration, Docker Compose, Redis, and service-to-service communication are working. Verify clean startup, 	health checks, and persistent data after restarts.
+
+5. Automated testing — Final verification
+	Finish any remaining JUnit 5 tests, especially database integration, gateway security, and WireMock circuit-breaker 	scenarios. Run a full Maven build.	
+
+================================================================================================
+
 # Run app in command line:
 mvn clean
 mvn clean install
